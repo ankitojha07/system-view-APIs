@@ -31,19 +31,6 @@ function getCPUInfo() {
   const architecture = os.arch();
   const loadAverage = os.loadavg();
   const uptime = os.uptime();
-
-  console.log(
-    model,
-    " - ",
-    cores,
-    " - ",
-    architecture,
-    " - ",
-    loadAverage,
-    " - ",
-    uptime
-  );
-
   return {
     model,
     cores,
@@ -52,7 +39,6 @@ function getCPUInfo() {
     uptime,
   };
 }
-console.log(getCPUInfo());
 
 // get memory info
 function getMemoryInfo() {
@@ -61,16 +47,6 @@ function getMemoryInfo() {
   const usedMemory = totalMemory - freeMemory;
   const memoryUsage = (usedMemory / totalMemory) * 100;
 
-  console.log(
-    formatBytes(totalMemory),
-    " - ",
-    formatBytes(freeMemory),
-    " - ",
-    formatBytes(usedMemory),
-    " - ",
-    memoryUsage.toFixed(2) + "%"
-  );
-
   return {
     total: formatBytes(totalMemory),
     free: formatBytes(freeMemory),
@@ -78,7 +54,6 @@ function getMemoryInfo() {
     usage: memoryUsage.toFixed(2) + "%",
   };
 }
-getMemoryInfo();
 
 // get os info
 const getOSInfo = () => {
@@ -87,20 +62,51 @@ const getOSInfo = () => {
   const release = os.release();
   const hostname = os.hostname();
   const uptime = formatTime(os.uptime());
-
-  console.log("OS Info: ");
-
-  console.log({
+  return {
     type,
     platform,
     release,
     hostname,
     uptime,
-  });
+  };
 };
-getOSInfo();
 
 // get User info
+const getUserInfo = () => {
+  const userInfo = os.userInfo();
+  return {
+    username: userInfo.username,
+    homedir: userInfo.homedir,
+    shell: userInfo.shell,
+  };
+};
+
 // get network info
+const getNetworkInfo = () => {
+  const networkInterfaces = os.networkInterfaces();
+  return networkInterfaces;
+};
 // get process info
+const getProcessInfo = () => {
+  const pid = process.pid;
+  const ppid = process.ppid;
+  const uid = process.getuid ? process.getuid() : null;
+  const gid = process.getgid ? process.getgid() : null;
+  const execPath = process.execPath;
+  const memoryUsage = process.memoryUsage();
+  const uptime = formatTime(process.uptime());
+  const cwd = process.cwd();
+  return {
+    pid, 
+    ppid,
+    uid,
+    gid,
+    execPath,
+    memoryUsage,
+    uptime,
+    cwd,
+  };
+};
+console.log(getProcessInfo());
+
 //! Get HTTP info
