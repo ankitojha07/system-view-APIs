@@ -21,20 +21,39 @@ function formatTime(seconds) {
   return `${days}d ${hours}h ${minutes}m ${remainingSeconds}s`;
 }
 
-console.log(os.cpus());
+// console.log(os.cpus()[0]);
 
 // get CPU info
 function getCPUInfo() {
   const cpus = os.cpus();
-  const cpuInfo = cpus.map((cpu) => {
-    return {
-      model: cpu.model,
-      speed: cpu.speed,
-      times: cpu.times,
-    };
-  });
-  return cpuInfo;
+  const model = cpus[0].model;
+  const cores = cpus.length;
+  const architecture = os.arch();
+  const loadAverage = os.loadavg();
+  const uptime = os.uptime();
+
+  console.log(
+    model,
+    " - ",
+    cores,
+    " - ",
+    architecture,
+    " - ",
+    loadAverage,
+    " - ",
+    uptime
+  );
+
+  return {
+    model,
+    cores,
+    architecture,
+    loadAverage,
+    uptime,
+  };
 }
+console.log(getCPUInfo());
+
 // get memory info
 // get os info
 // get User info
