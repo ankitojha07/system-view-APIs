@@ -113,6 +113,7 @@ console.log(getProcessInfo());
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   res.setHeader("Content-Type", "application/json");
+
   if (parsedUrl.path === "/") {
     res.statusCode = 200;
     res.end(
@@ -120,34 +121,35 @@ const server = http.createServer((req, res) => {
         name: "System Info API",
         version: "1.0.0",
         description: "Access system information via simple JSON response",
-        routes: {
-          "/cpu": "Get CPU info",
-          "/memory": "Get Memory info",
-          "/os": "Get OS info",
-          "/user": "Get User info",
-          "/network": "Get Network info",
-          "/process": "Get Process info",
-        },
+        routes: [
+          "/",
+          "/cpu",
+          "/memory",
+          "/os",
+          "/user",
+          "/network",
+          "/process",
+        ],
       })
     );
   } else if (parsedUrl.path === "/cpu") {
     res.statusCode = 200;
-    res.end(JSON.stringify(getCPUInfo()));
+    res.end(JSON.stringify(getCPUInfo(), null, 2));
   } else if (parsedUrl.path === "/memory") {
     res.statusCode = 200;
-    res.end(JSON.stringify(getMemoryInfo()));
+    res.end(JSON.stringify(getMemoryInfo(), null, 2));
   } else if (parsedUrl.path === "/os") {
     res.statusCode = 200;
-    res.end(JSON.stringify(getOSInfo()));
+    res.end(JSON.stringify(getOSInfo(), null, 2));
   } else if (parsedUrl.path === "/user") {
     res.statusCode = 200;
-    res.end(JSON.stringify(getUserInfo()));
+    res.end(JSON.stringify(getUserInfo(), null, 2));
   } else if (parsedUrl.path === "/network") {
     res.statusCode = 200;
-    res.end(JSON.stringify(getNetworkInfo()));
+    res.end(JSON.stringify(getNetworkInfo(), null, 2));
   } else if (parsedUrl.path === "/process") {
     res.statusCode = 200;
-    res.end(JSON.stringify(getProcessInfo()));
+    res.end(JSON.stringify(getProcessInfo(), null, 2));
   } else {
     res.statusCode = 404;
     res.end(
