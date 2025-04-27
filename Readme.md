@@ -24,4 +24,29 @@ This project provides a simple HTTP server that exposes system information throu
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/ankitojha07/system-view-APIs
+
+ 2. Navigate to the project directory:
+    ```bash
+   cd system-view-APIs
+
+ 3. Install dependencies (if any):
+    ```bash
+   npm install
+
+## Usage
+1. Start the server:
+    ```bash
+    node app.js
+
+2. Open your browser or use a tool like curl or Postman to access the endpoints:
+- Example: http://localhost:3000/cpu
+
+## Configuration
+- The server listens on port 3000 by default. You can change the port by setting the PORT environment variable:
+    ```bash
+    PORT=3000 node app.js
+
+## License
+- This project is licensed under the MIT License.
+
