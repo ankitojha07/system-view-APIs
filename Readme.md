@@ -28,11 +28,11 @@ This project provides a simple HTTP server that exposes system information throu
 
  2. Navigate to the project directory:
     ```bash
-   cd system-view-APIs
+    cd system-view-APIs
 
  3. Install dependencies (if any):
     ```bash
-   npm install
+    npm install
 
 ## Usage
 1. Start the server:
@@ -48,5 +48,4 @@ This project provides a simple HTTP server that exposes system information throu
     PORT=3000 node app.js
 
 ## License
-- This project is licensed under the MIT License.
-
+This project is licensed under the MIT License.
