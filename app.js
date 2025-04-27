@@ -97,7 +97,7 @@ const getProcessInfo = () => {
   const uptime = formatTime(process.uptime());
   const cwd = process.cwd();
   return {
-    pid, 
+    pid,
     ppid,
     uid,
     gid,
@@ -109,4 +109,57 @@ const getProcessInfo = () => {
 };
 console.log(getProcessInfo());
 
-//! Get HTTP info
+//! HTTP Server
+const server = http.createServer((req, res) => {
+  const parsedUrl = url.parse(req.url, true);
+  res.setHeader("Content-Type", "application/json");
+  if (parsedUrl.path === "/") {
+    res.statusCode = 200;
+    res.end(
+      JSON.stringify({
+        name: "System Info API",
+        version: "1.0.0",
+        description: "Access system information via simple JSON response",
+        routes: {
+          "/cpu": "Get CPU info",
+          "/memory": "Get Memory info",
+          "/os": "Get OS info",
+          "/user": "Get User info",
+          "/network": "Get Network info",
+          "/process": "Get Process info",
+        },
+      })
+    );
+  } else if (parsedUrl.path === "/cpu") {
+    res.statusCode = 200;
+    res.end(JSON.stringify(getCPUInfo()));
+  } else if (parsedUrl.path === "/memory") {
+    res.statusCode = 200;
+    res.end(JSON.stringify(getMemoryInfo()));
+  } else if (parsedUrl.path === "/os") {
+    res.statusCode = 200;
+    res.end(JSON.stringify(getOSInfo()));
+  } else if (parsedUrl.path === "/user") {
+    res.statusCode = 200;
+    res.end(JSON.stringify(getUserInfo()));
+  } else if (parsedUrl.path === "/network") {
+    res.statusCode = 200;
+    res.end(JSON.stringify(getNetworkInfo()));
+  } else if (parsedUrl.path === "/process") {
+    res.statusCode = 200;
+    res.end(JSON.stringify(getProcessInfo()));
+  } else {
+    res.statusCode = 404;
+    res.end(
+      JSON.stringify({
+        error: "Not Found",
+      })
+    );
+  }
+});
+
+//! start the server
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
